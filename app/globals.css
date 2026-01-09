@@ -114,17 +114,33 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--color-border);
+    outline-color: color-mix(in srgb, var(--color-ring) 50%, transparent);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
   }
 }
 
 @utility gradient {
-  @apply bg-linear-to-b from-emerald-500 to-teal-400;
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-emerald-500),
+    var(--color-teal-400)
+  );
 }
 
 @utility gradient-title {
-  @apply gradient font-bold text-transparent bg-clip-text pb-1 pr-2;
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-emerald-500),
+    var(--color-teal-400)
+  );
+  font-weight: 700;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  padding-bottom: 0.25rem;
+  padding-right: 0.5rem;
 }
