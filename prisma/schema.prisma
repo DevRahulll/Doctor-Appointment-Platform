@@ -102,7 +102,7 @@ model CreditTransaction {
   amount    Int // Positive for additions, negative for usage
   type      TransactionType
   packageId String? // reference to which package was purchased
-  creagedAt DateTime        @default(now())
+  createdAt DateTime        @default(now())
 }
 
 enum TransactionType {
