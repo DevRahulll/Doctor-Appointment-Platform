@@ -1,7 +1,6 @@
 import getDoctorBySpecialty from '@/actions/doctor-listing';
 import PageHeader from '@/components/page-header';
 import { redirect } from 'next/navigation';
-import React from 'react'
 import DoctorCard from '../_components/doctor-card';
 
 const DoctorSpecialtyPage = async ({ params }) => {

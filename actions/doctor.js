@@ -112,3 +112,44 @@ export async function getDoctorAvailability() {
         throw new Error("Failed to fetch availability slots " + error.message);
     }
 }
+
+export async function getDoctorAppointments() {
+    const { userId } = await auth();
+
+    if (!userId) {
+        throw new Error("Unauthorized");
+    }
+
+    try {
+        const doctor = await db.user.findUnique({
+            where: {
+                clerkUserId: userId,
+                role: "DOCTOR",
+            },
+        });
+
+        if (!doctor) {
+            throw new Error("Doctor not found");
+        }
+
+        const appointments = await db.appointment.findMany({
+            where: {
+                doctorId: doctor.id,
+                status: {
+                    in: ["SCHEDULED"],
+                },
+            },
+            include: {
+                patient: true,
+            },
+            orderBy: {
+                startTime: "asc",
+            },
+        });
+
+        return { appointments };
+    } catch (error) {
+        throw new Error("Failed to fetch appointments ", error.message);
+    }
+}
+

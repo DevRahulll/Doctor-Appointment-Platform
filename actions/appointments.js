@@ -1,9 +1,10 @@
+"use server"
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { Auth } from "@vonage/auth"
 import { Vonage } from "@vonage/server-sdk"
 import { deductCreditsForAppointment } from "./credits";
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/navigation";
 import { addDays, addMinutes, format, isBefore, endOfDay } from "date-fns"
 
 const credentials = new Auth({
@@ -251,7 +252,7 @@ export async function getDoctorById(doctorId) {
             },
         });
 
-        if (!doctor) {
+        if (!doctorId) {
             throw new Error("Doctor not found");
         }
 
