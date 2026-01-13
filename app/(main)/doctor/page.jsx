@@ -1,14 +1,15 @@
 import { getDoctorAvailability } from "@/actions/doctor";
 import { getCurrentUser } from "@/actions/onboarding";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar, Clock, DollarSign } from "lucide-react";
 import { redirect } from "next/navigation";
+import { AvailabilitySettings } from "./_components/availability-setting";
 
 
 export default async function DoctorDashboardPage() {
     const user = await getCurrentUser();
 
-    const [appointmentsData, availabilityData, earningsData, payoutsData] =
+    const [availabilityData] =
         await Promise.all([
             getDoctorAvailability(),
         ]);
@@ -44,6 +45,11 @@ export default async function DoctorDashboardPage() {
                     <span>Availability</span>
                 </TabsTrigger>
             </TabsList>
+            <div className="md:col-span-3">
+                <TabsContent value="availability" className="border-none p-0">
+                    <AvailabilitySettings slots={availabilityData.slots || []} />
+                </TabsContent>
+            </div>
         </Tabs>
     );
 }

@@ -1,3 +1,4 @@
+"use client"
 import { setAvailabilitySlots } from '@/actions/doctor';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,7 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-export const AvailabilitySettings = async ({ slots }) => {
+export const AvailabilitySettings = ({ slots }) => {
     const [showForm, setShowForm] = useState(false);
 
     const { loading, fn: submitSlots, data } = useFetch(setAvailabilitySlots);

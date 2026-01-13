@@ -78,7 +78,6 @@ export async function setAvailabilitySlots(formData) {
     }
 }
 
-
 //  Get doctor's current availability slots
 export async function getDoctorAvailability() {
     const { userId } = await auth();
