@@ -1,3 +1,4 @@
+"use client"
 import { getDoctorAppointments } from "@/actions/doctor";
 import AppointmentCard from "@/components/appointment-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
