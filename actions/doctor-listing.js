@@ -1,3 +1,4 @@
+"use server"
 import { db } from '@/lib/prisma';
 
 async function getDoctorBySpecialty(specialty) {
@@ -20,4 +21,4 @@ async function getDoctorBySpecialty(specialty) {
     }
 }
 
-export default getDoctorBySpecialty
+export default getDoctorBySpecialty;

@@ -6,7 +6,7 @@ import useFetch from "@/hooks/use-fetch";
 import { Calendar } from "lucide-react";
 import { useEffect } from "react";
 
-const DoctorAppointmentsList = async () => {
+const DoctorAppointmentsList = () => {
     const {
         loading,
         data,

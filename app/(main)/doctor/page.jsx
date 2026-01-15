@@ -46,7 +46,7 @@ export default async function DoctorDashboardPage() {
                     className="flex-1 md:flex md:items-center md:justify-start md:px-4 md:py-3 w-full"
                 >
                     <Calendar className="h-4 w-4 mr-2 hidden md:inline" />
-                    <span>Appointments</span>v
+                    <span>Appointments</span>
                 </TabsTrigger>
                 <TabsTrigger
                     value="availability"
@@ -65,7 +65,7 @@ export default async function DoctorDashboardPage() {
                     <TabsContent value="availability" className="border-none p-0">
                         <AvailabilitySettings slots={availabilityData.slots || []} />
                     </TabsContent>
-                        //todo  earnings
+
                 </div>
             </TabsList>
         </Tabs>

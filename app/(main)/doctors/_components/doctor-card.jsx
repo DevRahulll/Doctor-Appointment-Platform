@@ -5,7 +5,9 @@ import { Calendar, Star, User } from "lucide-react";
 import Link from "next/link";
 
 
-export default async function DoctorCard(doctor) {
+export default async function DoctorCard({ doctor }) {
+
+    // console.log("doctor ", doctor)
 
     return (
         <Card className="border-emerald-900/20 hover:border-emerald-700/40 transition-all">
@@ -25,7 +27,9 @@ export default async function DoctorCard(doctor) {
 
                     <div className="flex-1">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-                            <h3 className="font-medium text-white text-lg">{doctor.name}</h3>
+                            <h3 className="font-medium text-white text-lg">
+                                {doctor.name}
+                            </h3>
                             <Badge
                                 variant="outline"
                                 className="bg-emerald-900/20 border-emerald-900/30 text-emerald-400 self-start"

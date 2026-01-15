@@ -4,7 +4,7 @@ import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
 // get all appointments for the authenticated patient
-export const getPatientAppointment = async () => {
+export const getPatientAppointments = async () => {
     const { userId } = await auth();
 
     if (!userId) {
