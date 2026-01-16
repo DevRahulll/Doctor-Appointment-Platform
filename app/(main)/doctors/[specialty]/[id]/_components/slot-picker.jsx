@@ -7,12 +7,12 @@ import { ChevronRight, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 
-export default async function SlotPicker({ days, onSelectSlot }) {
+export default function SlotPicker({ days, onSelectSlot }) {
     const [selectedSlot, setSelectedSlot] = useState(null);
-    const [activeTab, setActiveTab] = useState(firstDayWithSlots);
 
     const firstDayWithSlots =
         days.find((day) => day.slots.length > 0)?.date || days[0]?.date;
+    const [activeTab, setActiveTab] = useState(firstDayWithSlots);
 
     const handleSlotSelect = (slot) => {
         setSelectedSlot(slot);
@@ -58,7 +58,7 @@ export default async function SlotPicker({ days, onSelectSlot }) {
 
                 {days.map((day) => (
                     <TabsContent key={day.date} value={day.date} className="pt-4">
-                        {days.slots.length === 0 ? (
+                        {day.slots.length === 0 ? (
                             <div className="text-center py-8 text-muted-foreground">
                                 No available slots for this day.
                             </div>
@@ -104,13 +104,15 @@ export default async function SlotPicker({ days, onSelectSlot }) {
             </Tabs>
 
             <div className="flex justify-end">
-                <Button onClick={confirmSelection}
+                <Button
+                    onClick={confirmSelection}
                     disabled={!selectedSlot}
-                    className="bg-emerald-600 hover:bg-emerald-700">
+                    className="bg-emerald-600 hover:bg-emerald-700"
+                >
                     Continue
-                    <ChevronRight className="ml-2 h-24 w-4" />
+                    <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
             </div>
         </div>
-    )
+    );
 }

@@ -3,7 +3,7 @@
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AlertCircle, Calendar, ChevronDown, ChevronUp, Clock, FileText, Medal, User } from "lucide-react";
 import Image from "next/image";
@@ -156,7 +156,7 @@ export default function DoctorProfile({ doctor, availableDays }) {
                     </CardContent>
                 </Card>
 
-                //booking section
+                {/* booking section */}
                 {showBooking && (
                     <div id="booking-section">
                         <Card className="border-emerald-900/20">

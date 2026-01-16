@@ -19,6 +19,8 @@ export default clerkMiddleware(async (auth, req) => {
     }
 
     return NextResponse.next();
+}, {
+    afterSignOutUrl: "/",
 });
 
 export const config = {

@@ -4,6 +4,10 @@ import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
+const CREDIT_VALUE = 10; // $10 per credit total
+const PLATFORM_FEE_PER_CREDIT = 2; // $2 platform fee
+const DOCTOR_EARNINGS_PER_CREDIT = 8; // $8 to doctor
+
 export const requestPayout = async (formData) => {
     const { userId } = await auth();
 

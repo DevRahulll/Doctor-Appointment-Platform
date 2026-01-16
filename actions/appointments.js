@@ -66,33 +66,34 @@ export async function bookAppointment(formData) {
             where: {
                 doctorId: doctorId,
                 status: "SCHEDULED",
-                OR: [{
-                    // New appointment starts during an existing appointment
-                    startTime: {
-                        lte: startTime,
+                OR: [
+                    {
+                        // New appointment starts during an existing appointment
+                        startTime: {
+                            lte: startTime,
+                        },
+                        endTime: {
+                            gt: startTime,
+                        },
                     },
-                    endTime: {
-                        gt: startTime,
+                    {
+                        // New appointment ends during an existing appointment
+                        startTime: {
+                            lt: endTime,
+                        },
+                        endTime: {
+                            gte: endTime,
+                        },
                     },
-                },
-                {
-                    // New appointment ends during an existing appointment
-                    startTime: {
-                        lt: endTime,
+                    {
+                        // New appointment completely overlaps an existing appointment
+                        startTime: {
+                            gte: startTime,
+                        },
+                        endTime: {
+                            lte: endTime,
+                        },
                     },
-                    endTime: {
-                        gte: endTime,
-                    },
-                },
-                {
-                    // New appointment completely overlaps an existing appointment
-                    startTime: {
-                        gte: startTime,
-                    },
-                    endTime: {
-                        lte: endTime,
-                    },
-                },
                 ],
             }
         });
@@ -127,8 +128,8 @@ export async function bookAppointment(formData) {
         revalidatePath("/appointments");
 
         return { success: true, appointment: appointment };
-    } catch {
-        console.error("Failed to book appointment:", error);
+    } catch (error) {
+        console.error("Failed to book appointment:", error.message);
         throw new Error("Failed to book appointment:" + error.message);
     }
 }

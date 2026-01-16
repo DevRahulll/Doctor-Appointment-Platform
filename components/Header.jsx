@@ -4,8 +4,9 @@ import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
 import { checkUser } from '@/lib/checkUser'
-import { Calendar, ShieldCheck, Stethoscope, User } from 'lucide-react'
+import { Calendar, CreditCard, ShieldCheck, Stethoscope, User } from 'lucide-react'
 import { checkAndAllocateCredits } from '@/actions/credits'
+import { Badge } from './ui/badge'
 
 const Header = async () => {
 
@@ -88,6 +89,32 @@ const Header = async () => {
                             </Link>
                         )}
                     </SignedIn>
+
+                    {(!user || user?.role !== "ADMIN") && (
+                        <Link href={user?.role === "PATIENT" ? "/pricing" : "/doctor"}>
+                            <Badge
+                                variant="outline"
+                                className="h-9 bg-emerald-900/20 border-emerald-700/30 px-3 py-1 flex items-center gap-2"
+                            >
+                                <CreditCard className="h-3.5 w-3.5 text-emerald-400" />
+                                <span className="text-emerald-400">
+                                    {user && user.role !== "ADMIN" ? (
+                                        <>
+                                            {user.credits}{" "}
+                                            <span className="hidden md:inline">
+                                                {user?.role === "PATIENT"
+                                                    ? "Credits"
+                                                    : "Earned Credits"}
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <>Pricing</>
+                                    )}
+                                </span>
+                            </Badge>
+                        </Link>
+                    )}
+
                     <SignedOut>
                         <SignInButton>
                             <Button variant='secondary'>Sign In</Button>
@@ -102,7 +129,9 @@ const Header = async () => {
                                     userPreviewMainIdentifier: "font-semibold"
                                 }
                             }}
-                            afterSignOutUrl='/'
+                            signOutOptions={{
+                                redirectUrl: '/'
+                            }}
                         />
                     </SignedIn>
                 </div>
