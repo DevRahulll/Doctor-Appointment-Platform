@@ -7,7 +7,7 @@ import { Calendar } from "lucide-react";
 import { redirect } from "next/navigation";
 
 
-export const PatientAppointmentsPage = async () => {
+export default async function PatientAppointmentsPage() {
     const user = await getCurrentUser();
 
     if (!user || !user.role !== "PATIENT") {
