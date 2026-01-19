@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { Auth } from "@vonage/auth"
 import { Vonage } from "@vonage/server-sdk"
 import { deductCreditsForAppointment } from "./credits";
-import { revalidatePath } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { addDays, addMinutes, format, isBefore, endOfDay } from "date-fns"
 
 const credentials = new Auth({
@@ -36,6 +36,8 @@ export async function bookAppointment(formData) {
             throw new Error("Patient not found");
         }
 
+
+
         const doctorId = formData.get("doctorId");
         const startTime = new Date(formData.get("startTime"));
         const endTime = new Date(formData.get("endTime"));
@@ -56,6 +58,8 @@ export async function bookAppointment(formData) {
         if (!doctor) {
             throw new Error("Doctor not found or not verified");
         }
+
+
 
         if (patient.credits < 2) {
             throw new Error("Insufficient credits to book an appointment");
@@ -114,7 +118,7 @@ export async function bookAppointment(formData) {
         }
 
         const appointment = await db.appointment.create({
-            date: {
+            data: {
                 patientId: patient.id,
                 doctorId: doctor.id,
                 startTime,
@@ -135,12 +139,12 @@ export async function bookAppointment(formData) {
 }
 
 // generate a vonage video api session
-export async function createVideoSession() {
+async function createVideoSession() {
     try {
         const session = await vonage.video.createSession({ mediaMode: "routed" });
         return session.sessionId;
     } catch (error) {
-        throw new Error("Failed to create video session: " + error.message);
+        throw new Error("Failed to create video session: ", error.message);
     }
 }
 

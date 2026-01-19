@@ -230,48 +230,50 @@ export default function AppointmentCard({
                                         {otherParty.specialty}
                                     </p>
                                 )}
-
                                 <div className="flex items-center mt-2 text-sm text-muted-foreground">
                                     <Calendar className="h-4 w-4 mr-1" />
-                                    <span>Date</span>
+                                    <span>{formatDateTime(appointment.startTime)}</span>
                                 </div>
-
                                 <div className="flex items-center mt-1 text-sm text-muted-foreground">
                                     <Clock className="h-4 w-4 mr-1" />
                                     <span>
+                                        {formatTime(appointment.startTime)} -{" "}
+                                        {formatTime(appointment.endTime)}
                                     </span>
                                 </div>
                             </div>
                         </div>
-
                         <div className="flex flex-col gap-2 self-end md:self-start">
                             <Badge
-                                variant={'outline'}
+                                variant="outline"
                                 className={
-                                    appointment.status === "COMPLETED" ? "bg-emerald-900/20 border-emerald-900/30 text-emerald-400" : appointment.status === "CANCELLED" ? "bg-red-900/20 border-red-900/30 text-red-400" : "bg-amber-900/20 border-amber-900/30 text-amber-400"
+                                    appointment.status === "COMPLETED"
+                                        ? "bg-emerald-900/20 border-emerald-900/30 text-emerald-400"
+                                        : appointment.status === "CANCELLED"
+                                            ? "bg-red-900/20 border-red-900/30 text-red-400"
+                                            : "bg-amber-900/20 border-amber-900/30 text-amber-400"
                                 }
                             >
                                 {appointment.status}
                             </Badge>
                             <div className="flex gap-2 mt-2 flex-wrap">
-                                {
-                                    canMarkCompleted() && (
-                                        <Button
-                                            size="sm"
-                                            onClick={handleMarkCompleted}
-                                            disabled={completeLoading}
-                                            className="bg-emerald-600 hover:bg-emerald-700"
-                                        >
-                                            {completeLoading ? (
-                                                <Loader2 className="h-4 w-4 animate-spin" />
-                                            ) : (
-                                                <>
-                                                    <CheckCircle className="h-4 w-4 mr-1" />
-                                                    Complete
-                                                </>
-                                            )}
-                                        </Button>
-                                    )}
+                                {canMarkCompleted() && (
+                                    <Button
+                                        size="sm"
+                                        onClick={handleMarkCompleted}
+                                        disabled={completeLoading}
+                                        className="bg-emerald-600 hover:bg-emerald-700"
+                                    >
+                                        {completeLoading ? (
+                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                        ) : (
+                                            <>
+                                                <CheckCircle className="h-4 w-4 mr-1" />
+                                                Complete
+                                            </>
+                                        )}
+                                    </Button>
+                                )}
                                 <Button
                                     size="sm"
                                     variant="outline"
@@ -286,7 +288,7 @@ export default function AppointmentCard({
                 </CardContent>
             </Card>
 
-                //appointment dialog
+            {/* //appointment dialog */}
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogContent className="max-w-2xl">
                     <DialogHeader>
@@ -301,7 +303,7 @@ export default function AppointmentCard({
                     </DialogHeader>
 
                     <div className="space-y-4 py-4">
-                        //other pary info
+                        {/* //other pary info */}
                         <div className="space-y-2">
 
                             <h4 className="text-sm font-medium text-muted-foreground">
@@ -331,7 +333,7 @@ export default function AppointmentCard({
                             </div>
                         </div>
 
-                        //appointment time
+                        {/* //appointment time */}
                         <div className="space-y-2">
                             <h4 className="text-sm font-medium text-muted-foreground">
                                 Scheduled Time
@@ -353,7 +355,7 @@ export default function AppointmentCard({
                             </div>
                         </div>
 
-                        //status
+                        {/* //status */}
                         <div className="space-y-2">
                             <h4 className="text-sm font-medium text-muted-foreground">
                                 Status
@@ -372,7 +374,7 @@ export default function AppointmentCard({
                             </Badge>
                         </div>
 
-                        //patieent description
+                        {/* //patieent description */}
                         {appointment.patientDescription && (
                             <div className="space-y-2">
                                 <h4 className="text-sm font-medium text-muted-foreground">
@@ -386,7 +388,7 @@ export default function AppointmentCard({
                             </div>
                         )}
 
-                        // join vidoe call button
+                        {/* // join vidoe call button */}
                         {appointment.status === "SCHEDULED" && (
                             <div className="space-y-2">
                                 <h4 className="text-sm font-medium text-muted-foreground">
@@ -417,7 +419,7 @@ export default function AppointmentCard({
                             </div>
                         )}
 
-                        // doctor notes
+                        {/* // doctor notes */}
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
                                 <h4 className="text-sm font-medium text-muted-foreground">
@@ -516,7 +518,7 @@ export default function AppointmentCard({
                                 </Button>
                             )}
 
-                            // cancel button - for scheduled appointments
+                            {/* // cancel button - for scheduled appointments */}
                             {appointment.status === "SCHEDULED" && (
                                 <Button
                                     variant="outline"

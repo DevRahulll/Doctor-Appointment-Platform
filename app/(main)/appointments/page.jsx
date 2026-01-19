@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 export default async function PatientAppointmentsPage() {
     const user = await getCurrentUser();
 
-    if (!user || !user.role !== "PATIENT") {
+    if (!user || user.role !== "PATIENT") {
         redirect("/onboarding")
     }
 
@@ -18,10 +18,10 @@ export default async function PatientAppointmentsPage() {
 
 
     return (
-        <div>
+        <div className="container mx-auto px-4 py-8">
             <PageHeader
                 icon={<Calendar />}
-                title={"My Appointments"}
+                title="My Appointments"
                 backLink="/doctors"
                 backLabel="Find Doctors"
             />
@@ -63,5 +63,5 @@ export default async function PatientAppointmentsPage() {
                 </CardContent>
             </Card>
         </div>
-    )
+    );
 }
